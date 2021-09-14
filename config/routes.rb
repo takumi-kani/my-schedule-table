@@ -14,5 +14,7 @@ Rails.application.routes.draw do
 
   resources :users, only: [:edit, :update]
 
-  resources :schedules
+  resources :schedules do
+    resources :comments, only: :create
+  end
 end
