@@ -1,5 +1,4 @@
 Rails.application.routes.draw do
-  devise_for :admin_users
   root to: 'schedules#index'
 
   devise_for :users, controllers: {
