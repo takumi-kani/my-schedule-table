@@ -13,6 +13,23 @@
 <h3>内容</h3>
 <%= @schedule.info %>
 
+<h3>コメント欄</h3>
+<%= form_with model: [@schedule, @comment], local: true do |f|%>
+<%= render 'shared/error_messages', model: f.object %>
+  <%= f.label :text, "コメント" %><br />
+  <%= f.text_field :text %>
+  <%= f.submit "送信する" %>
+<% end %>
+
+<ul>
+  <% @comments.each do |comment| %>
+  <li>
+    <%= comment.user.name %>
+    <%= comment.text %>
+  </li>
+  <% end %>
+</ul>
+
 <p><%= link_to "予定の変更", edit_schedule_path(@schedule), method: :get %></p>
 <p><%= link_to "予定を削除する", schedule_path(@schedule), method: :delete %></p>
 
