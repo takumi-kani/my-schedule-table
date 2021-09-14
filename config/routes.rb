@@ -7,4 +7,6 @@ Rails.application.routes.draw do
     registrations: 'users/registrations'
   }
   resources :users, only: [:edit, :update]
+
+  resources :schedules, only: :index
 end
