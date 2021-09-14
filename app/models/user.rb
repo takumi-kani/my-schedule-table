@@ -8,4 +8,7 @@ class User < ApplicationRecord
     validates :name, format: { with: /\A[ぁ-んァ-ヶー－]+\z/, message: 'は「ひらがな」か「カタカナ」で入力してください' }
     validates :password, format: { with: /\A[0-9]+\z/ , message: 'は半角数字のみで入力してください'}
   end
+
+  has_many :schedules
+  has_many :comments
 end
