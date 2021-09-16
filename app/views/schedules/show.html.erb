@@ -1,0 +1,36 @@
+<h1>タイトル</h1>
+<%= @schedule.title %>
+
+<h3>開始日時</h3>
+<%= @schedule.start_time %>
+
+<h3>終了日時</h3>
+<%= @schedule.end_time %>
+
+<h3>場所</h3>
+<%= @schedule.place %>
+
+<h3>内容</h3>
+<%= @schedule.info %>
+
+<h3>コメント欄</h3>
+<%= form_with model: [@schedule, @comment], local: true do |f|%>
+<%= render 'shared/error_messages', model: f.object %>
+  <%= f.label :text, "コメント" %><br />
+  <%= f.text_field :text %>
+  <%= f.submit "送信する" %>
+<% end %>
+
+<ul>
+  <% @comments.each do |comment| %>
+  <li>
+    <%= comment.user.name %>
+    <%= comment.text %>
+  </li>
+  <% end %>
+</ul>
+
+<p><%= link_to "予定の変更", edit_schedule_path(@schedule), method: :get %></p>
+<p><%= link_to "予定を削除する", schedule_path(@schedule), method: :delete %></p>
+
+<p><%= link_to "カレンダーに戻る", root_path %></p>
