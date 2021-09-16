@@ -8,5 +8,6 @@ class Schedule < ApplicationRecord
   end
 
   belongs_to :user
+  belongs_to :admin_user
   has_many :comments
 end
