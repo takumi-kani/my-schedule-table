@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 
 class AdminUsers::RegistrationsController < Devise::RegistrationsController
+  before_action :basic_auth
   # before_action :configure_sign_up_params, only: [:create]
   # before_action :configure_account_update_params, only: [:update]
 
@@ -59,4 +60,10 @@ class AdminUsers::RegistrationsController < Devise::RegistrationsController
   # def after_inactive_sign_up_path_for(resource)
   #   super(resource)
   # end
+
+  def basic_auth
+    authenticate_or_request_with_http_basic do |id, password|
+      id == 'test' && password =='1111'
+    end
+  end
 end
