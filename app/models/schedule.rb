@@ -7,7 +7,7 @@ class Schedule < ApplicationRecord
     validates :info
   end
 
-  belongs_to :user
-  belongs_to :admin_user
+  belongs_to :user, optional: true
+  belongs_to :admin_user, optional: true
   has_many :comments
 end
