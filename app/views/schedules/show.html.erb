@@ -24,7 +24,11 @@
 <ul>
   <% @comments.each do |comment| %>
   <li>
-    <%= comment.user.name %>
+    <% if current_user %>
+      <%= "＠#{current_user.name}" %>
+    <% else %>
+      <%= "@#{current_admin_user.name}" %>
+    <% end %>
     <%= comment.text %>
   </li>
   <% end %>
