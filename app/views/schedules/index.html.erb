@@ -6,7 +6,20 @@
   <%= month_calendar events: @schedules do |date, schedules| %>
     <%= date.day %><br>
     <% schedules.each do |schedule| %>
-      <%= link_to schedule.title, schedule_path(schedule.id) %>
+      <% if current_user.id == schedule.user_id || schedule.user_id == nil %>
+        <li><%= link_to schedule.title, schedule_path(schedule.id) %></li>
+      <% end %>
+    <% end %>
+  <% end %>
+<% elsif admin_user_signed_in? %>
+  <h1><%= "#{current_admin_user.name}のカレンダー" %></h1>
+  <%= link_to 'ログアウト', destroy_admin_user_session_path, method: :delete %>
+  <%= link_to "新しい予定", new_schedule_path %>
+
+  <%= month_calendar events: @schedules do |date, schedules| %>
+    <%= date.day %><br>
+    <% schedules.each do |schedule| %>
+      <li><%= link_to schedule.title, schedule_path(schedule.id) %></li>
     <% end %>
   <% end %>
 <% else %>
