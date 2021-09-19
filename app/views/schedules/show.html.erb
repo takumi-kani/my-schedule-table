@@ -2,10 +2,10 @@
 <%= @schedule.title %>
 
 <h3>開始日時</h3>
-<%= @schedule.start_time %>
+<%= @schedule.start_time.strftime("%m/%d(#{%w(日 月 火 水 木 金 土)[@schedule.created_at.wday]}) %H:%M") %>
 
 <h3>終了日時</h3>
-<%= @schedule.end_time %>
+<%= @schedule.end_time.strftime("%m/%d(#{%w(日 月 火 水 木 金 土)[@schedule.created_at.wday]}) %H:%M") %>
 
 <h3>場所</h3>
 <%= @schedule.place %>
@@ -24,12 +24,12 @@
 <ul>
   <% @comments.each do |comment| %>
   <li>
-  <% if comment.admin_user_id == nil %>
-    <%= comment.user.name %>
-  <% else %>
-    <%= comment.admin_user.name %>
-  <% end %>
     <%= comment.text %>
+    <% if comment.admin_user_id == nil %>
+      <%= comment.user.name %><%= comment.created_at.strftime("%m/%d(#{%w(日 月 火 水 木 金 土)[comment.created_at.wday]}) %H:%M") %>
+    <% else %>
+      <%= comment.admin_user.name %><%= comment.created_at.strftime("%m/%d(#{%w(日 月 火 水 木 金 土)[comment.created_at.wday]}) %H:%M") %>
+    <% end %>
   </li>
   <% end %>
 </ul>
