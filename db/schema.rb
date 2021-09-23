@@ -10,16 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-<<<<<<< Updated upstream
-ActiveRecord::Schema.define(version: 2021_09_15_091508) do
-=======
-<<<<<<< Updated upstream
 ActiveRecord::Schema.define(version: 2021_09_17_090316) do
-=======
-ActiveRecord::Schema.define(version: 2021_09_23_035218) do
->>>>>>> Stashed changes
->>>>>>> Stashed changes
-
   create_table "admin_users", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
     t.string "name", null: false
     t.string "email", default: "", null: false
@@ -35,9 +26,11 @@ ActiveRecord::Schema.define(version: 2021_09_23_035218) do
   create_table "comments", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
     t.text "text", null: false
     t.bigint "user_id"
+    t.bigint "admin_user_id"
     t.bigint "schedule_id"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.index ["admin_user_id"], name: "index_comments_on_admin_user_id"
     t.index ["schedule_id"], name: "index_comments_on_schedule_id"
     t.index ["user_id"], name: "index_comments_on_user_id"
   end
@@ -48,23 +41,12 @@ ActiveRecord::Schema.define(version: 2021_09_23_035218) do
     t.datetime "end_time", null: false
     t.string "place", null: false
     t.text "info", null: false
-<<<<<<< Updated upstream
-    t.bigint "user_id", null: false
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
-=======
+
     t.bigint "user_id"
-<<<<<<< Updated upstream
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.bigint "admin_user_id"
-=======
-    t.bigint "admin_user_id"
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
->>>>>>> Stashed changes
     t.index ["admin_user_id"], name: "index_schedules_on_admin_user_id"
->>>>>>> Stashed changes
     t.index ["user_id"], name: "index_schedules_on_user_id"
   end
 
@@ -80,7 +62,9 @@ ActiveRecord::Schema.define(version: 2021_09_23_035218) do
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end
 
+  add_foreign_key "comments", "admin_users"
   add_foreign_key "comments", "schedules"
   add_foreign_key "comments", "users"
+  add_foreign_key "schedules", "admin_users"
   add_foreign_key "schedules", "users"
 end
