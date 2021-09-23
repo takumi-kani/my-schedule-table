@@ -10,7 +10,15 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
+<<<<<<< Updated upstream
 ActiveRecord::Schema.define(version: 2021_09_15_091508) do
+=======
+<<<<<<< Updated upstream
+ActiveRecord::Schema.define(version: 2021_09_17_090316) do
+=======
+ActiveRecord::Schema.define(version: 2021_09_23_035218) do
+>>>>>>> Stashed changes
+>>>>>>> Stashed changes
 
   create_table "admin_users", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
     t.string "name", null: false
@@ -40,9 +48,23 @@ ActiveRecord::Schema.define(version: 2021_09_15_091508) do
     t.datetime "end_time", null: false
     t.string "place", null: false
     t.text "info", null: false
+<<<<<<< Updated upstream
     t.bigint "user_id", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+=======
+    t.bigint "user_id"
+<<<<<<< Updated upstream
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.bigint "admin_user_id"
+=======
+    t.bigint "admin_user_id"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+>>>>>>> Stashed changes
+    t.index ["admin_user_id"], name: "index_schedules_on_admin_user_id"
+>>>>>>> Stashed changes
     t.index ["user_id"], name: "index_schedules_on_user_id"
   end
 
