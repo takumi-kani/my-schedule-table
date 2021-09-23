@@ -2,10 +2,10 @@
 <%= @schedule.title %>
 
 <h3>開始日時</h3>
-<%= @schedule.start_time %>
+<%= @schedule.start_time.strftime("%m/%d(#{%w(日 月 火 水 木 金 土)[@schedule.created_at.wday]}) %H:%M") %>
 
 <h3>終了日時</h3>
-<%= @schedule.end_time %>
+<%= @schedule.end_time.strftime("%m/%d(#{%w(日 月 火 水 木 金 土)[@schedule.created_at.wday]}) %H:%M") %>
 
 <h3>場所</h3>
 <%= @schedule.place %>
@@ -24,13 +24,26 @@
 <ul>
   <% @comments.each do |comment| %>
   <li>
-    <%= comment.user.name %>
     <%= comment.text %>
+    <% if comment.admin_user_id == nil %>
+      <%= comment.user.name %><%= comment.created_at.strftime("%m/%d(#{%w(日 月 火 水 木 金 土)[comment.created_at.wday]}) %H:%M") %>
+    <% else %>
+      <%= comment.admin_user.name %><%= comment.created_at.strftime("%m/%d(#{%w(日 月 火 水 木 金 土)[comment.created_at.wday]}) %H:%M") %>
+    <% end %>
   </li>
   <% end %>
 </ul>
 
-<p><%= link_to "予定の変更", edit_schedule_path(@schedule), method: :get %></p>
-<p><%= link_to "予定を削除する", schedule_path(@schedule), method: :delete %></p>
+<% if user_signed_in? %>
+  <% if current_user.id == @schedule.user_id %>
+    <p><%= link_to "予定の変更", edit_schedule_path(@schedule), method: :get %></p>
+    <p><%= link_to "予定を削除する", schedule_path(@schedule), method: :delete %></p>
+  <% end %>
+<% else admin_user_signed_in? %>
+  <% if current_admin_user.id == @schedule.admin_user_id %>
+    <p><%= link_to "予定の変更", edit_schedule_path(@schedule), method: :get %></p>
+    <p><%= link_to "予定を削除する", schedule_path(@schedule), method: :delete %></p>
+  <% end %>
+<% end %>
 
 <p><%= link_to "カレンダーに戻る", root_path %></p>
