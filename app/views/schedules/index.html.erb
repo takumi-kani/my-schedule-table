@@ -11,7 +11,7 @@
       <% end %>
     <% end %>
   <% end %>
-<% elsif %>
+<% elsif admin_user_signed_in? %>
   <h1><%= "#{current_admin_user.name}のカレンダー" %></h1>
   <%= link_to 'ログアウト', destroy_admin_user_session_path, method: :delete %>
   <%= link_to "新しい予定", new_schedule_path %>
