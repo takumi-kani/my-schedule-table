@@ -39,7 +39,7 @@
     <p><%= link_to "予定の変更", edit_schedule_path(@schedule), method: :get %></p>
     <p><%= link_to "予定を削除する", schedule_path(@schedule), method: :delete %></p>
   <% end %>
-<% else %>
+<% else admin_user_signed_in? %>
   <% if current_admin_user.id == @schedule.admin_user_id %>
     <p><%= link_to "予定の変更", edit_schedule_path(@schedule), method: :get %></p>
     <p><%= link_to "予定を削除する", schedule_path(@schedule), method: :delete %></p>
