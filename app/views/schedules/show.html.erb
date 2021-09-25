@@ -14,13 +14,6 @@
 <%= @schedule.info %>
 
 <h3>コメント欄</h3>
-<%= form_with model: [@schedule, @comment], local: true do |f|%>
-<%= render 'shared/error_messages', model: f.object %>
-  <%= f.label :text, "コメント" %><br />
-  <%= f.text_field :text %>
-  <%= f.submit "送信する" %>
-<% end %>
-
 <ul>
   <% @comments.each do |comment| %>
   <li>
@@ -33,6 +26,12 @@
   </li>
   <% end %>
 </ul>
+
+<%= form_with model: [@schedule, @comment], local: true do |f|%>
+<%= render 'shared/error_messages', model: f.object %>
+  <%= f.text_field :text %>
+  <%= f.submit "送信する" %>
+<% end %>
 
 <% if user_signed_in? %>
   <% if current_user.id == @schedule.user_id %>
